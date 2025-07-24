@@ -39,22 +39,6 @@ const Navigation = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           {/* LINKS A SINISTRA */}
-          <Nav className="me-auto">
-            <Nav.Link as={Link} to="/">
-              Home
-            </Nav.Link>
-            <Nav.Link as={Link} to="/about">
-              Chi Siamo
-            </Nav.Link>
-            <Nav.Link as={Link} to="/massaggi">
-              Massaggi
-            </Nav.Link>
-            <Nav.Link as={Link} to="/carrello">
-              Carrello
-            </Nav.Link>
-          </Nav>
-
-          {/* LINKS A DESTRA */}
           <Nav className="ms-auto">
             {isLoggedIn ? (
               <>
@@ -68,6 +52,13 @@ const Navigation = () => {
                     </Nav.Link>
                   </>
                 )}
+
+                {role === "MASSAGGIATORE" && (
+                  <Nav.Link as={Link} to="/prenotazioni/ricevute">
+                    Prenotazioni Ricevute
+                  </Nav.Link>
+                )}
+
                 <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
               </>
             ) : (

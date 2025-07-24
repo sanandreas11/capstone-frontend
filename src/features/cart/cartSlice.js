@@ -1,17 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit"
 
-const initialState = {
-  items: [], // ogni item è un massaggio prenotabile
-}
-
 const cartSlice = createSlice({
   name: "cart",
-  initialState,
+  initialState: {
+    items: [],
+  },
   reducers: {
     addToCart: (state, action) => {
-      const existing = state.items.find((item) => item.id === action.payload.id)
-      if (!existing) {
-        state.items.push(action.payload)
+      const massage = action.payload
+      const exists = state.items.find((item) => item.id === massage.id)
+      if (!exists) {
+        state.items.push({ ...massage })
       }
     },
     removeFromCart: (state, action) => {
@@ -24,5 +23,4 @@ const cartSlice = createSlice({
 })
 
 export const { addToCart, removeFromCart, clearCart } = cartSlice.actions
-
 export default cartSlice.reducer

@@ -6,6 +6,7 @@ import { addToCart } from "../features/cart/cartSlice.js"
 
 const MassaggioCard = ({ massaggio }) => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const handlePrenota = () => {
     navigate(`/prenota/${massaggio.id}`)

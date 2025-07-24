@@ -9,18 +9,23 @@ import {
   Spinner,
 } from "react-bootstrap"
 import api from "../api/axios"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
+import { addToCart } from "../features/cart/cartSlice"
 
 export default function MassaggiPage() {
+  const dispatch = useDispatch()
+  const cartItems = useSelector((state) => state.cart.items)
+  const role = useSelector((state) => state.auth.role)
+
   const [massaggi, setMassaggi] = useState([])
   const [loading, setLoading] = useState(true)
+  const [addedMessage, setAddedMessage] = useState(null)
   const [filters, setFilters] = useState({
     prezzoMin: "",
     prezzoMax: "",
     durataMin: "",
     durataMax: "",
   })
-  const role = useSelector((state) => state.auth.role)
 
   const fetchMassaggi = async () => {
     setLoading(true)
@@ -40,6 +45,7 @@ export default function MassaggiPage() {
   return (
     <Container className="mt-4">
       <h2>Massaggi</h2>
+
       <Form
         className="mb-3"
         onSubmit={(e) => {
@@ -94,6 +100,12 @@ export default function MassaggiPage() {
         </Row>
       </Form>
 
+      {addedMessage && (
+        <div className="alert alert-success" role="alert">
+          {addedMessage}
+        </div>
+      )}
+
       {loading ? (
         <Spinner />
       ) : (
@@ -104,34 +116,51 @@ export default function MassaggiPage() {
               <th>Prezzo (€)</th>
               <th>Durata (min)</th>
               <th>Massaggiatore</th>
-              {role === "ADMIN" && <th>Azioni</th>}
+              <th>Azioni</th>
             </tr>
           </thead>
           <tbody>
-            {massaggi.map((m) => (
-              <tr key={m.id}>
-                <td>{m.tipo}</td>
-                <td>{m.prezzo.toFixed(2)}</td>
-                <td>{m.durata}</td>
-                <td>
-                  {m.massaggiatore.nome} {m.massaggiatore.cognome}
-                </td>
-                {role === "ADMIN" && (
+            {massaggi.map((m) => {
+              const isInCart = cartItems.some((item) => item.id === m.id)
+
+              return (
+                <tr key={m.id}>
+                  <td>{m.tipo}</td>
+                  <td>{m.prezzo.toFixed(2)}</td>
+                  <td>{m.durata}</td>
                   <td>
-                    <Button
-                      variant="danger"
-                      size="sm"
-                      onClick={async () => {
-                        await api.delete(`/api/massaggi/${m.id}`)
-                        fetchMassaggi()
-                      }}
-                    >
-                      Elimina
-                    </Button>
+                    {m.massaggiatore.nome} {m.massaggiatore.cognome}
                   </td>
-                )}
-              </tr>
-            ))}
+                  <td>
+                    {role === "ADMIN" ? (
+                      <Button
+                        variant="danger"
+                        size="sm"
+                        onClick={async () => {
+                          await api.delete(`/api/massaggi/${m.id}`)
+                          fetchMassaggi()
+                        }}
+                      >
+                        Elimina
+                      </Button>
+                    ) : (
+                      <Button
+                        variant="outline-success"
+                        size="sm"
+                        disabled={isInCart}
+                        onClick={() => {
+                          dispatch(addToCart(m))
+                          setAddedMessage(`"${m.tipo}" aggiunto al carrello!`)
+                          setTimeout(() => setAddedMessage(null), 3000)
+                        }}
+                      >
+                        {isInCart ? "Già nel carrello" : "Aggiungi"}
+                      </Button>
+                    )}
+                  </td>
+                </tr>
+              )
+            })}
           </tbody>
         </Table>
       )}

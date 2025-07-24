@@ -12,7 +12,9 @@ import MassaggiPage from "./pages/MassaggiPage"
 import ForgotPasswordPage from "./pages/ForgotPasswordPage"
 import ResetPasswordPage from "./pages/ResetPasswordPage"
 import AdminMassaggiatoriPage from "./pages/AdminMassaggiatoriPage"
+import PrenotazioniAssegnatePage from "./pages/PrenotazioniAssegnatePage"
 import Unauthorized from "./pages/Unauthorized"
+import "./App.css"
 
 function App() {
   return (
@@ -36,6 +38,13 @@ function App() {
 
         <Route element={<PrivateRoute allowedRoles={["CLIENTE", "ADMIN"]} />}>
           <Route path="/prenotazioni" element={<PrenotazioniPage />} />
+        </Route>
+
+        <Route element={<PrivateRoute allowedRoles={["MASSAGGIATORE"]} />}>
+          <Route
+            path="/prenotazioni/ricevute"
+            element={<PrenotazioniAssegnatePage />}
+          />
         </Route>
 
         <Route element={<PrivateRoute allowedRoles={["ADMIN"]} />}>
