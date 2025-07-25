@@ -9,7 +9,6 @@ const Navigation = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  // Prendi token e ruolo dallo store Redux
   const token = useSelector((state) => state.auth.token)
   const role = useSelector((state) => state.auth.role)
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
@@ -27,8 +26,8 @@ const Navigation = () => {
 
   return (
     <Navbar bg="light" expand="lg">
-      <Container>
-        <Navbar.Brand as={Link} to="/">
+      <Container fluid className="px-0">
+        <Navbar.Brand as={Link} to="/" className="ms-3">
           <img
             src={logo}
             width="100"
@@ -36,10 +35,26 @@ const Navigation = () => {
             alt="Logo"
           />
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Toggle aria-controls="basic-navbar-nav" className="me-3" />
         <Navbar.Collapse id="basic-navbar-nav">
           {/* LINKS A SINISTRA */}
-          <Nav className="ms-auto">
+          <Nav className="me-auto ms-3">
+            <Nav.Link as={Link} to="/">
+              Home
+            </Nav.Link>
+            <Nav.Link as={Link} to="/about">
+              Chi Siamo
+            </Nav.Link>
+            <Nav.Link as={Link} to="/massaggi">
+              Massaggi
+            </Nav.Link>
+            <Nav.Link as={Link} to="/carrello">
+              Carrello
+            </Nav.Link>
+          </Nav>
+
+          {/* LINKS A DESTRA */}
+          <Nav className="ms-auto me-3">
             {isLoggedIn ? (
               <>
                 {role === "ADMIN" && (

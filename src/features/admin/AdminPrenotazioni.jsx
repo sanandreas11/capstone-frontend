@@ -6,7 +6,7 @@ const AdminPrenotazioni = () => {
   const [prenotazioni, setPrenotazioni] = useState([])
 
   const fetch = () => {
-    api.get("/api/prenotazioni").then((res) => setPrenotazioni(res.data))
+    api.get("/api/prenotazioni/tutte").then((res) => setPrenotazioni(res.data))
   }
 
   useEffect(() => {
@@ -14,7 +14,9 @@ const AdminPrenotazioni = () => {
   }, [])
 
   const annulla = (id) => {
-    api.delete(`/api/prenotazioni/${id}`).then(fetch)
+    if (window.confirm("Sei sicuro di voler annullare questa prenotazione?")) {
+      api.put(`/api/prenotazioni/${id}/annulla-by-admin`).then(fetch)
+    }
   }
 
   return (

@@ -35,9 +35,10 @@ const AdminMassaggiatori = () => {
   }
 
   const handleDelete = (id) => {
-    api.delete(`/api/utenti/massaggiatori/${id}`).then(() => {
-      fetchMassaggiatori()
-    })
+    api
+      .delete(`/api/utenti/massaggiatori/${id}`)
+      .then(() => fetchMassaggiatori())
+      .catch((err) => console.error("Errore durante la rimozione:", err))
   }
 
   return (

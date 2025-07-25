@@ -15,6 +15,7 @@ import AdminMassaggiatoriPage from "./pages/AdminMassaggiatoriPage"
 import PrenotazioniAssegnatePage from "./pages/PrenotazioniAssegnatePage"
 import Unauthorized from "./pages/Unauthorized"
 import "./App.css"
+import Footer from "./components/Footer"
 
 function App() {
   return (
@@ -55,6 +56,7 @@ function App() {
           />
         </Route>
       </Routes>
+      <Footer />
     </>
   )
 }

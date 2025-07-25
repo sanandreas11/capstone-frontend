@@ -32,7 +32,10 @@ const AdminMassaggi = () => {
   }
 
   const handleDelete = (id) => {
-    api.delete(`/api/massaggi/${id}`).then(fetchMassaggi)
+    api
+      .delete(`/api/massaggi/${id}`)
+      .then(() => fetchMassaggi())
+      .catch((err) => console.error("Errore durante la rimozione:", err))
   }
 
   return (

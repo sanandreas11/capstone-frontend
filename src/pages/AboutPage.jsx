@@ -7,19 +7,23 @@ const AboutPage = () => {
       <h1 className="mb-4 text-center">Chi Siamo</h1>
       <Row className="mb-5">
         <Col md={6}>
-          <p>
-            Benvenuti sul nostro sito <strong>Efi Method</strong>! Siamo un team
-            di professionisti del benessere dedicati a offrire un servizio di
-            prenotazione semplice, intuitivo e accessibile a tutti. Il nostro
-            obiettivo è mettere in contatto clienti con massaggiatori
-            qualificati, offrendo esperienze rilassanti e professionali in tutta
-            sicurezza.
-          </p>
-          <p>
+          <h2>
+            Benvenuti sul nostro sito <strong>Efi Method</strong>! Mi chiamo
+            Efi, e mi sto occupo di massaggi con un approccio mirato al
+            benessere fisico e al riequilibrio muscolare. Offro trattamenti che
+            combinano tecniche olistiche e sportive, con particolare attenzione
+            alla postura, alla mobilità e al rilascio delle tensioni accumulate.
+            Il mio obbiettivo è aiutare le persone a ritrovare leggerezza e
+            funzionalità attraverso un lavoro serio, competente e rispettoso.
+            Ogni trattamento è personalizzato in base alle esigenze specifiche
+            della persona. Mi aggiorno costantemente per offrire un servizio
+            efficace, professionale e in continua evoluzione.
+          </h2>
+          <h2>
             Il nostro progetto è nato come parte di un capstone finale,
             combinando tecnologia e benessere per rendere più facile l'accesso a
             trattamenti di qualità ovunque tu sia.
-          </p>
+          </h2>
         </Col>
         <Col md={6}>
           <Carousel interval={null} pause="hover">
