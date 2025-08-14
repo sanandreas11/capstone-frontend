@@ -98,8 +98,9 @@ export default function PrenotazioniPage() {
                       variant="success"
                       size="sm"
                       onClick={() => handlePaga(p.id)}
+                      disabled={p.pagato || p.annullata}
                     >
-                      Paga ora
+                      {p.pagato ? "Pagato" : "Paga"}
                     </Button>
                   </>
                 )}
